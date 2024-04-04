@@ -1,0 +1,17 @@
+class Student {
+    public:
+        explicit Student(std::string n, int a):
+        }
+    
+    {Codigo que falta}
+
+    private:
+        std::string name;
+        int age;
+};
+
+(a) Complete el constructor de la clase
+(b) Implemente los métodos de acceso: getName, setName, getAge, setAge.
+(c) Implemente el metodo bool isOlder() const, el cual verifica si el estudiante es mayor de edad.
+(d) Implemente la función principal, en la cual creará dos objetos de tipo Student. 
+    Solicitara los datos, nombre y edad, y posteriormente imprimira los datos e idicará si son estudiantes mayores de edad.
