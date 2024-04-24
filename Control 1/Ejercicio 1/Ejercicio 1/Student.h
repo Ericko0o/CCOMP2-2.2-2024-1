@@ -7,7 +7,7 @@ class Student {
 public:
     explicit Student(std::string n, int a);
 
-//met
+
     std::string getName() const;
     void setName(const std::string& n);
     int getAge() const;

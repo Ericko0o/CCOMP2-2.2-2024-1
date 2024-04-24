@@ -26,4 +26,4 @@ private:
     int month;
 };
 
-#endif // DATE_H
+#endif

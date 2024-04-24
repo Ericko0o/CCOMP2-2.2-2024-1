@@ -10,7 +10,7 @@ void Date::setDay(int d) {
     if (isValidDay(d)) {
         day = d;
     } else {
-        day = 1; // Default to 1 if day is invalid
+        day = 1;
     }
 }
 
@@ -18,7 +18,7 @@ void Date::setMonth(int m) {
     if (m >= 1 && m <= 12) {
         month = m;
     } else {
-        month = 1; // Default to January if month is invalid
+        month = 1;
     }
 }
 
@@ -26,7 +26,7 @@ void Date::setYear(int y) {
     if (y >= 1900 && y <= 2050) {
         year = y;
     } else {
-        year = 1900; // Default to 1900 if year is out of range
+        year = 1900;
     }
 }
 

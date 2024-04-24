@@ -8,7 +8,7 @@ class Student {
     private:
         std::string name;
         int age;
-};
+;
 
 (a) Complete el constructor de la clase
 (b) Implemente los métodos de acceso: getName, setName, getAge, setAge.
