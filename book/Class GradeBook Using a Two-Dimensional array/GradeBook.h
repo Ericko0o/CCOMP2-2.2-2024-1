@@ -1,141 +1,145 @@
-// Fig. 7.13: GradeBook.h
-// Definition of class GradeBook that uses an array to store test grades.
+#ifndef GRADEBOOK_H
+#define GRADEBOOK_H
+
 #include <string>
 #include <array>
 #include <iostream>
-#include <iomanip> // parameterized stream manipulators
+#include <iomanip>
 
-// GradeBook class definition
+// Clase GradeBook: Contiene funcionalidades para el manejo de calificaciones
 class GradeBook {
 public:
-    // constant number of students who took the test
-    static const size_t students{10}; // For example, set to 10
+    // Número estático de estudiantes que realizaron el examen
+    static const size_t students = 10;
 
-    // constructor initializes courseName and grades array
-    GradeBook(const std::string& name, const std::array<int, students>& gradesArray)
-        : courseName{name}, grades{gradesArray} {
+    // Constructor que inicializa el nombre del curso y el arreglo de calificaciones
+    GradeBook(const std::string& nombre,
+              const std::array<int, students>& calificacionesArray)
+        : nombreCurso{nombre}, calificaciones{calificacionesArray} {
     }
 
-    // function to set the course name
-    void setCourseName(const std::string& name) {
-        courseName = name; // store the course name
+    // Función para establecer el nombre del curso
+    void establecerNombreCurso(const std::string& nombre) {
+        nombreCurso = nombre; // Guarda el nombre del curso
     }
 
-    // function to retrieve the course name
-    const std::string& getCourseName() const {
-        return courseName;
+    // Función para obtener el nombre del curso
+    const std::string& obtenerNombreCurso() const {
+        return nombreCurso;
     }
 
-    // display a welcome message to the GradeBook user
-    void displayMessage() const {
-        // call getCourseName to get the name of this GradeBook's course
-        std::cout << "Welcome to the grade book for\n" << getCourseName()
-            << "!" << std::endl;
+    // Muestra un mensaje de bienvenida al usuario del GradeBook
+    void mostrarMensaje() const {
+        // Obtiene el nombre del curso y muestra un mensaje de bienvenida
+        std::cout << "¡Bienvenido al libro de calificaciones para\n" << obtenerNombreCurso()
+                  << "!" << std::endl;
     }
 
-    // perform various operations on the data (none modify the data)
-    void processGrades() const {
-        outputGrades(); // output grades array
+    // Realiza varias operaciones en los datos (sin modificarlos)
+    void procesarCalificaciones() const {
+        mostrarCalificaciones(); // Muestra las calificaciones
 
-        // call function getAverage to calculate the average grade
-        std::cout << std::setprecision(2) << std::fixed;
-        std::cout << "\nClass average is " << getAverage() << std::endl;
+        // Calcula y muestra el promedio de calificaciones
+        std::cout << std::setprecision(2) << std::fixed; 
+        std::cout << "\nEl promedio de la clase es: " << obtenerPromedio() << std::endl;
 
-        // call functions getMinimum and getMaximum
-        std::cout << "Lowest grade is " << getMinimum()
-            << "\nHighest grade is " << getMaximum() << std::endl;
+        // Muestra la calificación mínima y máxima
+        std::cout << "La calificación más baja es: " << obtenerMinimo()
+                  << "\nLa calificación más alta es: " << obtenerMaximo() << std::endl;
 
-        outputBarChart(); // display grade distribution chart
+        mostrarGraficoBarras(); // Muestra el gráfico de distribución de calificaciones
     }
 
-    // find minimum grade
-    int getMinimum() const {
-        int lowGrade{100}; // assume lowest grade is 100
+    // Encuentra la calificación mínima
+    int obtenerMinimo() const {
+        int calificacionBaja{100}; // Se asume que la calificación más baja es 100
 
-        // loop through grades array
-        for (int grade : grades) {
-            // if current grade lower than lowGrade, assign it to lowGrade
-            if (grade < lowGrade) {
-                lowGrade = grade; // new lowest grade
+        // Recorre el arreglo de calificaciones
+        for (int calificacion : calificaciones) {
+            // Si la calificación actual es menor que la calificaciónBaja, se actualiza
+            if (calificacion < calificacionBaja) {
+                calificacionBaja = calificacion; // Nueva calificación más baja
             }
         }
 
-        return lowGrade; // return lowest grade
+        return calificacionBaja; // Devuelve la calificación más baja
     }
 
-    // find maximum grade
-    int getMaximum() const {
-        int highGrade{0}; // assume highest grade is 0
+    // Encuentra la calificación máxima
+    int obtenerMaximo() const {
+        int calificacionAlta{0}; // Se asume que la calificación más alta es 0
 
-        // loop through grades array
-        for (int grade : grades) {
-            // if current grade higher than highGrade, assign it to highGrade
-            if (grade > highGrade) {
-                highGrade = grade; // new highest grade
+        // Recorre el arreglo de calificaciones
+        for (int calificacion : calificaciones) {
+            // Si la calificación actual es mayor que la calificaciónAlta, se actualiza
+            if (calificacion > calificacionAlta) {
+                calificacionAlta = calificacion; // Nueva calificación más alta
             }
         }
 
-        return highGrade; // return highest grade
+        return calificacionAlta; // Devuelve la calificación más alta
     }
 
-    // determine average grade for test
-    double getAverage() const {
-        int total{0}; // initialize total
+    // Calcula el promedio de calificaciones para el examen
+    double obtenerPromedio() const {
+        int total{0}; // Inicializa el total
 
-        // sum grades in array
-        for (int grade : grades) {
-            total += grade;
+        // Suma las calificaciones en el arreglo
+        for (int calificacion : calificaciones) {
+            total += calificacion;
         }
 
-        // return average of grades
-        return static_cast<double>(total) / grades.size();
+        // Devuelve el promedio de las calificaciones
+        return static_cast<double>(total) / calificaciones.size();
     }
 
-    // output bar chart displaying grade distribution
-    void outputBarChart() const {
-        std::cout << "\nGrade distribution:" << std::endl;
+    // Muestra el gráfico de barras que representa la distribución de calificaciones
+    void mostrarGraficoBarras() const {
+        std::cout << "\nDistribución de calificaciones:" << std::endl;
 
-        // stores frequency of grades in each range of 10 grades
-        const size_t frequencySize{11};
-        std::array<unsigned int, frequencySize> frequency{}; // init to 0s
+        // Almacena la frecuencia de las calificaciones en cada rango de 10
+        const size_t tamanoFrecuencia{11};
+        std::array<unsigned int, tamanoFrecuencia> frecuencia{}; // Inicializa a 0s
 
-        // for each grade, increment the appropriate frequency
-        for (int grade : grades) {
-            ++frequency[grade / 10];
+        // Para cada calificación, incrementa la frecuencia apropiada
+        for (int calificacion : calificaciones) {
+            ++frecuencia[calificacion / 10];
         }
 
-        // for each grade frequency, print bar in chart
-        for (size_t count{0}; count < frequencySize; ++count) {
-            // output bar labels ("0-9:", ..., "90-99:", "100:")
-            if (0 == count) {
-                std::cout << " 0-9: ";
-            } else if (10 == count) {
-                std::cout << " 100: ";
+        // Para cada frecuencia de calificación, imprime la barra en el gráfico
+        for (size_t contador{0}; contador < tamanoFrecuencia; ++contador) {
+            // Imprime etiquetas de barra ("0-9:", ..., "90-99:", "100:")
+            if (0 == contador) {
+                std::cout << "  0-9: ";
+            } else if (10 == contador) {
+                std::cout << "  100: ";
             } else {
-                std::cout << count * 10 << "-" << (count * 10) + 9 << ": ";
+                std::cout << contador * 10 << "-" << (contador * 10) + 9 << ": ";
             }
 
-            // print bar of asterisks
-            for (unsigned int stars{0}; stars < frequency[count]; ++stars) {
+            // Imprime la barra de asteriscos
+            for (unsigned int estrellas{0}; estrellas < frecuencia[contador]; ++estrellas) {
                 std::cout << '*';
             }
 
-            std::cout << std::endl; // start a new line of output
+            std::cout << std::endl; // Inicia una nueva línea de salida
         }
     }
 
-    // output the contents of the grades array
-    void outputGrades() const {
-        std::cout << "\nThe grades are:\n\n";
+    // Muestra el contenido del arreglo de calificaciones
+    void mostrarCalificaciones() const {
+        std::cout << "\nLas calificaciones son:\n\n";
 
-        // output each student's grade
-        for (size_t student{0}; student < grades.size(); ++student) {
-            std::cout << "Student " << std::setw(2) << student + 1 << ": "
-                << std::setw(3) << grades[student] << std::endl;
+        // Imprime la calificación de cada estudiante
+        for (size_t estudiante{0}; estudiante < calificaciones.size(); ++estudiante) {
+            std::cout << "Estudiante " << std::setw(2) << estudiante + 1 << ": "
+                      << std::setw(3) << calificaciones[estudiante] << std::endl;
         }
     }
 
 private:
-    std::string courseName; // course name for this grade book
-    std::array<int, students> grades; // array of student grades
+    std::string nombreCurso; // Nombre del curso para este libro de calificaciones
+    std::array<int, students> calificaciones; // Arreglo de calificaciones de estudiantes
 };
+
+#endif // GRADEBOOK_H
