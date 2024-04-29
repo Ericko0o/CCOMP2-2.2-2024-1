@@ -1,40 +1,34 @@
+// Un palíndromo es una cadena que se lee igual de adelante hacia atrás que de atrás hacia adelante. Ejemplos de palíndromos incluyen "radar" y "Able was I ere I saw Elba". Una frase palindrómica es un palíndromo si se ignoran los signos de puntuación y los espacios. Escribe una función recursiva `testPalindrome` que devuelva true si una cadena es un palíndromo, y false en caso contrario. Ignora todos los espacios, comas, puntos y signos de interrogación en la oración. Por lo tanto, "red roses run no risk, sir, on nurses order." se considera un palíndromo. Ten en cuenta que, al igual que con un arreglo, el operador de corchetes ([]) se puede utilizar para iterar a través de los caracteres en una cadena.
+
+
+
 #include <iostream>
 #include <string>
+#include <cctype>
 
-// Función para determinar si un carácter es una letra del alfabeto (mayúscula o minúscula)
-bool isLetter(char c) {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
-}
-
-// Función para convertir un carácter a minúsculas
-char toLower(char c) {
-    if (c >= 'A' && c <= 'Z') {
-        return c + ('a' - 'A');
-    }
-    return c;
-}
+using namespace std;
 
 // Función recursiva para verificar si una cadena es un palíndromo
-bool testPalindrome(const std::string& str, int start, int end) {
-    // Caso base: cuando hemos revisado todos los caracteres
+bool testPalindrome(string str, int start, int end) {
+    // Caso base: cuando solo hay un carácter o ningún carácter
     if (start >= end) {
         return true;
     }
 
-    // Ignoramos los caracteres de puntuación y los espacios
-    while (start < end && !isLetter(str[start])) {
+    // Ignorar espacios, comas, puntos y signos de interrogación
+    while (!isalpha(str[start]) && start < end) {
         start++;
     }
-    while (start < end && !isLetter(str[end])) {
+    while (!isalpha(str[end]) && end > start) {
         end--;
     }
 
-    // Convertimos ambos caracteres a minúsculas para hacer la comparación sin distinción de mayúsculas y minúsculas
-    char char1 = toLower(str[start]);
-    char char2 = toLower(str[end]);
+    // Convertir a minúsculas para comparación insensible a mayúsculas y minúsculas
+    char c1 = tolower(str[start]);
+    char c2 = tolower(str[end]);
 
-    // Si los caracteres son diferentes, no es un palíndromo
-    if (char1 != char2) {
+    // Verificar si los caracteres son iguales
+    if (c1 != c2) {
         return false;
     }
 
@@ -43,15 +37,14 @@ bool testPalindrome(const std::string& str, int start, int end) {
 }
 
 int main() {
-    std::string sentence = "las rosas rojas no corren ningún riesgo, señor, para las enfermeras";
-    
-    // Llamada a la función para verificar si la cadena es un palíndromo
-    bool isPalindrome = testPalindrome(sentence, 0, sentence.length() - 1);
-    
-    if (isPalindrome) {
-        std::cout << "La oración es un palíndromo." << std::endl;
+    string sentence;
+    cout << "Ingrese una oracion: ";
+    getline(cin, sentence);
+
+    if (testPalindrome(sentence, 0, sentence.length() - 1)) {
+        cout << "La oracion es un palindromo." << endl;
     } else {
-        std::cout << "La oración no es un palíndromo." << std::endl;
+        cout << "La oracion no es un palindromo." << endl;
     }
 
     return 0;
