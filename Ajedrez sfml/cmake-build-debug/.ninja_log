@@ -1,0 +1,8 @@
+# ninja log v6
+89	1381	7396927593801607	CMakeFiles/PruebaCLion.dir/pieceTextures.cpp.obj	813d3db94365eb3a
+62	1385	7396927593536413	CMakeFiles/PruebaCLion.dir/board.cpp.obj	c2f7685347750a47
+5	361	7396968474410907	build.ninja	2035bd13c1c333f7
+83	1396	7396927593736457	CMakeFiles/PruebaCLion.dir/piece.cpp.obj	63500d0fb7b23141
+78	1521	7396927593686476	CMakeFiles/PruebaCLion.dir/chessGame.cpp.obj	3ee6a0d21de7c326
+48	1405	7396927593386410	CMakeFiles/PruebaCLion.dir/main.cpp.obj	2d04bb6d3212ed28
+96	1421	7396927593871583	CMakeFiles/PruebaCLion.dir/Piece_hijas.cpp.obj	2deee5c6022ad2f7
